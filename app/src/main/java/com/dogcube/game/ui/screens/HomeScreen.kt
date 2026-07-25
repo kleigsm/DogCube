@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.dogcube.game.ui.theme.ColorBoardBg
 import com.dogcube.game.ui.theme.ColorPrimary
+import com.dogcube.game.ui.theme.ColorBackground
 import com.dogcube.game.ui.theme.ColorScoreText
 import com.dogcube.game.ui.theme.ColorSurface
 import kotlin.random.Random
