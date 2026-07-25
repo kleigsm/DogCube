@@ -57,10 +57,7 @@ class MainActivity : ComponentActivity() {
                 onShowScores = { screen = AppScreen.SCORES }
             )
             AppScreen.GAME -> {
-                GameScreen(gameVM, onGameOver = {})
-                LaunchedEffect(snap.phase) {
-                    if (snap.phase == GamePhase.GAME_OVER) { kotlinx.coroutines.delay(2000); screen = AppScreen.HOME }
-                }
+                GameScreen(gameVM, onBackToMenu = { screen = AppScreen.HOME })
             }
             AppScreen.SCORES -> ScoreScreen(scores, onBack = { screen = AppScreen.HOME })
         }
