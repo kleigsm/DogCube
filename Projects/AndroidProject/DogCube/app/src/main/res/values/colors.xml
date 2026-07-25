@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dog_i_dachshund">#00BCD4</color>
+    <color name="dog_o_corgi">#FFC107</color>
+    <color name="dog_t_frenchie">#9C27B0</color>
+    <color name="dog_s_shiba">#4CAF50</color>
+    <color name="dog_z_husky">#F44336</color>
+    <color name="dog_j_golden">#2196F3</color>
+    <color name="dog_l_bordercollie">#FF9800</color>
+    <color name="board_bg">#1A1A2E</color>
+    <color name="board_grid">#2A2A4A</color>
+    <color name="ghost_piece">#40FFFFFF</color>
+</resources>
