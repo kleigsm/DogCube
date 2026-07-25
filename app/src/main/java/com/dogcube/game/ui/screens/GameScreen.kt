@@ -40,7 +40,7 @@ fun GameScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "分数：${snap.score}",
+                    "\u5206\u6570\uFF1A${snap.score}",
                     color = ColorScoreText,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
@@ -49,8 +49,8 @@ fun GameScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("等级：${snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
-                    Text("行数：${snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                    Text("\u7B49\u7EA7\uFF1A${snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                    Text("\u884C\u6570\uFF1A${snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
                     TextButton(onClick = { viewModel.togglePause() }) {
                         Text(
                             if (snap.phase == GamePhase.PAUSED) "\u25B6" else "\u23F8",
@@ -68,7 +68,7 @@ fun GameScreen(
                     Modifier.padding(end = 8.dp, top = 8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("下一个", color = ColorScoreText, style = MaterialTheme.typography.labelLarge)
+                    Text("\u4E0B\u4E00\u4E2A", color = ColorScoreText, style = MaterialTheme.typography.labelLarge)
                     NextPiecePreview(snap.nextPiece)
                 }
             }
@@ -88,7 +88,7 @@ fun GameScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        "已暂停",
+                        "\u5DF2\u6682\u505C",
                         color = ColorScoreText,
                         fontSize = 48.sp,
                         fontWeight = FontWeight.Bold,
@@ -96,7 +96,7 @@ fun GameScreen(
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        "\\u25B6 点击继续",
+                        "\u25B6 \u70B9\u51FB\u7EE7\u7EED",
                         color = ColorScoreText.copy(alpha = 0.6f),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
@@ -116,7 +116,7 @@ fun GameScreen(
                         showGameOverDialog = false
                         onBackToMenu()
                     }) {
-                        Text("菜单", color = ColorScoreText)
+                        Text("\u83DC\u5355", color = ColorScoreText)
                     }
                     Button(
                         onClick = {
@@ -125,14 +125,14 @@ fun GameScreen(
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary)
                     ) {
-                        Text("再来一局", fontWeight = FontWeight.Bold)
+                        Text("\u518D\u6765\u4E00\u5C40", fontWeight = FontWeight.Bold)
                     }
                 }
             },
             containerColor = ColorSurface,
             title = {
                 Text(
-                    "游戏结束",
+                    "\u6E38\u620F\u7ED3\u675F",
                     color = ColorScoreText,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -152,7 +152,7 @@ fun GameScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        "等级 ${snap.level}  |  消除 ${snap.linesCleared} 行",
+                        "\u7B49\u7EA7 ${snap.level}  |  \u6D88\u9664 ${snap.linesCleared} \u884C",
                         color = ColorScoreText,
                         style = MaterialTheme.typography.bodyLarge
                     )

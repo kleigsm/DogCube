@@ -1,6 +1,5 @@
 package com.dogcube.game
 
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,18 +21,15 @@ import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject lateinit var scoreRepository: ScoreRepository
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent { DogCubeTheme { DogCubeApp() } }
     }
-
 
     @Composable
     private fun DogCubeApp() {
@@ -42,23 +38,19 @@ class MainActivity : ComponentActivity() {
         val scores by scoreRepository.topScores.collectAsStateWithLifecycle(initialValue = emptyList())
         val snap by gameVM.snapshot.collectAsState()
 
-
         LaunchedEffect(snap.phase) {
             if (snap.phase == GamePhase.GAME_OVER && snap.score > 0) {
                 val df = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                scoreRepository.saveScore("Íæ¼Ò", snap.score, snap.level, snap.linesCleared, df.format(Date()))
+                scoreRepository.saveScore("\u73A9\u5BB6", snap.score, snap.level, snap.linesCleared, df.format(Date()))
             }
         }
-
 
         when (screen) {
             AppScreen.HOME -> HomeScreen(
                 onStartGame = { screen = AppScreen.GAME; gameVM.startGame() },
                 onShowScores = { screen = AppScreen.SCORES }
             )
-            AppScreen.GAME -> {
-                GameScreen(gameVM, onBackToMenu = { screen = AppScreen.HOME })
-            }
+            AppScreen.GAME -> GameScreen(gameVM, onBackToMenu = { screen = AppScreen.HOME })
             AppScreen.SCORES -> ScoreScreen(scores, onBack = { screen = AppScreen.HOME })
         }
     }

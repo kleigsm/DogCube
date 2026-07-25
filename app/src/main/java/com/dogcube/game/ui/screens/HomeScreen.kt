@@ -1,6 +1,5 @@
 package com.dogcube.game.ui.screens
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -13,7 +12,6 @@ import com.dogcube.game.ui.theme.ColorBoardBg
 import com.dogcube.game.ui.theme.ColorPrimary
 import com.dogcube.game.ui.theme.ColorScoreText
 
-
 @Composable
 fun HomeScreen(onStartGame: () -> Unit, onShowScores: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize().background(ColorBoardBg), contentAlignment = Alignment.Center) {
@@ -21,10 +19,16 @@ fun HomeScreen(onStartGame: () -> Unit, onShowScores: () -> Unit) {
             Text("\uD83D\uDC36 DogCube", color = ColorScoreText, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
             Text("\uD83D\uDC15 \uD83E\uDD8A \uD83D\uDC3A \uD83D\uDC29 \uD83D\uDC3E", style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(16.dp))
-            Button(onClick = onStartGame, colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary), modifier = Modifier.size(200.dp, 56.dp)) {
-                Text("开始游戏", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
+            Button(
+                onClick = onStartGame,
+                colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary),
+                modifier = Modifier.size(200.dp, 56.dp)
+            ) {
+                Text("\u5F00\u59CB\u6E38\u620F", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
             }
-            TextButton(onShowScores) { Text("排行榜", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge) }
+            TextButton(onShowScores) {
+                Text("\u6392\u884C\u699C", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+            }
         }
     }
 }
