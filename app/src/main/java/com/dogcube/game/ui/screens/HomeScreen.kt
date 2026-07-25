@@ -21,7 +21,7 @@ fun HomeScreen(onStartGame: () -> Unit, onShowScores: () -> Unit) {
             Text("?? DogCube", color = ColorScoreText, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
             Text("?? ?? ?? ?? ??", style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(16.dp))
-            Button(onStartGame, ButtonDefaults.buttonColors(containerColor = ColorPrimary), Modifier.size(200.dp, 56.dp)) {
+            Button(onClick = onStartGame, colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary), modifier = Modifier.size(200.dp, 56.dp)) {
                 Text("START", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
             }
             TextButton(onShowScores) { Text("HIGH SCORES", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge) }
