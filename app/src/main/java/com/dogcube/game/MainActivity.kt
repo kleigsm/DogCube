@@ -1,9 +1,11 @@
-package com.dogcube.game
+﻿package com.dogcube.game
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -45,13 +47,15 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        when (screen) {
-            AppScreen.HOME -> HomeScreen(
-                onStartGame = { screen = AppScreen.GAME; gameVM.startGame() },
-                onShowScores = { screen = AppScreen.SCORES }
-            )
-            AppScreen.GAME -> GameScreen(gameVM, onBackToMenu = { screen = AppScreen.HOME })
-            AppScreen.SCORES -> ScoreScreen(scores, onBack = { screen = AppScreen.HOME })
+        Crossfade(targetState = screen, animationSpec = tween(400)) { currentScreen ->
+            when (currentScreen) {
+                AppScreen.HOME -> HomeScreen(
+                    onStartGame = { screen = AppScreen.GAME; gameVM.startGame() },
+                    onShowScores = { screen = AppScreen.SCORES }
+                )
+                AppScreen.GAME -> GameScreen(gameVM, onBackToMenu = { screen = AppScreen.HOME })
+                AppScreen.SCORES -> ScoreScreen(scores, onBack = { screen = AppScreen.HOME })
+            }
         }
     }
 }
