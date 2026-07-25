@@ -1,4 +1,4 @@
-ï»¿package com.dogcube.game.ui.screens
+package com.dogcube.game.ui.screens
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -22,7 +22,7 @@ import com.dogcube.game.ui.components.ControlPanel
 import com.dogcube.game.ui.components.GameCanvas
 import com.dogcube.game.ui.components.NextPiecePreview
 import com.dogcube.game.ui.theme.ColorBackground
-import com.dogcube.game.ui.theme.ColorBoardBg
+import com.dogcube.game.ui.theme.ColorOverlay
 import com.dogcube.game.ui.theme.ColorGridLine
 import com.dogcube.game.ui.theme.ColorPrimary
 import com.dogcube.game.ui.theme.ColorScoreText
@@ -43,7 +43,7 @@ fun GameScreen(
     var prevLinesCleared by remember { mutableIntStateOf(0) }
     var shakeOffset by remember { mutableStateOf(IntOffset.Zero) }
 
-    // Detect line clears â€” trigger flash, popup, shake
+    // Detect line clears ¡ª trigger flash, popup, shake
     LaunchedEffect(snap.linesCleared) {
         val delta = snap.linesCleared - prevLinesCleared
         if (delta > 0) {
@@ -119,7 +119,7 @@ fun GameScreen(
 
         // Pause overlay
         if (snap.phase == GamePhase.PAUSED) {
-            Box(Modifier.fillMaxSize().background(ColorBoardBg.copy(alpha = 0.75f)).clickable { viewModel.togglePause() }, contentAlignment = Alignment.Center) {
+            Box(Modifier.fillMaxSize().background(ColorOverlay).clickable { viewModel.togglePause() }, contentAlignment = Alignment.Center) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("\u5DF2\u6682\u505C", color = ColorScoreText, fontSize = 48.sp, fontWeight = FontWeight.Bold, letterSpacing = 8.sp)
                     Spacer(Modifier.height(16.dp))

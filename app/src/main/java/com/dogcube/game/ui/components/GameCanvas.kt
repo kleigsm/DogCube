@@ -1,4 +1,4 @@
-﻿package com.dogcube.game.ui.components
+package com.dogcube.game.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
@@ -16,7 +16,7 @@ import com.dogcube.game.engine.Board
 import com.dogcube.game.engine.GameSnapshot
 import com.dogcube.game.model.DogBreed
 import com.dogcube.game.ui.theme.ColorBoardBg
-import com.dogcube.game.ui.theme.ColorGhostPiece
+import com.dogcube.game.ui.theme.ColorGhostPiece`nimport com.dogcube.game.ui.theme.ColorFlashWhite`nimport com.dogcube.game.ui.theme.ColorFlashGold`nimport com.dogcube.game.ui.theme.ColorBoardGlow
 import com.dogcube.game.ui.theme.ColorGridLine
 import kotlin.math.roundToInt
 
@@ -34,8 +34,8 @@ fun GameCanvas(
 
         // Glow border
         val glowWidth = 3.dp.toPx()
-        drawRect(Color(0xFFFF6B8A).copy(alpha = 0.25f), Offset(-glowWidth, -glowWidth), Size(size.width + glowWidth * 2, size.height + glowWidth * 2), style = androidx.compose.ui.graphics.drawscope.Stroke(width = glowWidth))
-        drawRect(Color(0xFFFF6B8A).copy(alpha = 0.10f), Offset(0f, 0f), size, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
+        drawRect(ColorBoardGlow, Offset(-glowWidth, -glowWidth), Size(size.width + glowWidth * 2, size.height + glowWidth * 2), style = androidx.compose.ui.graphics.drawscope.Stroke(width = glowWidth))
+        drawRect(ColorPrimary.copy(alpha = 0.10f), Offset(0f, 0f), size, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
 
         // Grid
         for (x in 0..Board.WIDTH) drawLine(ColorGridLine, Offset(x * cw, 0f), Offset(x * cw, size.height), 1.5f)
@@ -58,8 +58,8 @@ fun GameCanvas(
         // Flash rows for line clear animation
         for (i in 0 until flashRows) {
             val row = Board.HEIGHT - 1 - i
-            drawRect(Color.White.copy(alpha = 0.7f), Offset(0f, row * ch), Size(size.width, ch))
-            drawRect(Color(0xFFFFD700).copy(alpha = 0.3f), Offset(0f, row * ch + 2), Size(size.width, ch - 4))
+            drawRect(ColorFlashWhite, Offset(0f, row * ch), Size(size.width, ch))
+            drawRect(ColorFlashGold, Offset(0f, row * ch + 2), Size(size.width, ch - 4))
         }
 
         val p = snapshot.currentPiece ?: return@Canvas

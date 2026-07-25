@@ -1,5 +1,7 @@
-package com.dogcube.game.ui.components
+﻿package com.dogcube.game.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -10,12 +12,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dogcube.game.ui.theme.ColorPrimary
 import com.dogcube.game.ui.theme.ColorScoreText
+import com.dogcube.game.ui.theme.Dimens
 
 @Composable
 fun ControlPanel(
@@ -24,25 +29,20 @@ fun ControlPanel(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp),
+        modifier = modifier.fillMaxWidth().padding(horizontal = Dimens.GAP_XL, vertical = Dimens.GAP_SM),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(Dimens.GAP_MD)
     ) {
-        // Rotation row
-        Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
-            PressableButton("\u21BA", onRotateCCW, 64.dp, 48.dp)
-            PressableButton("\u21BB", onRotateCW, 64.dp, 48.dp)
+        Row(horizontalArrangement = Arrangement.spacedBy(Dimens.GAP_XXL)) {
+            PressableButton("\u21BA", onRotateCCW, Dimens.BTN_SMALL_W, 48.dp)
+            PressableButton("\u21BB", onRotateCW, Dimens.BTN_SMALL_W, 48.dp)
         }
-
-        // D-pad row
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            PressableButton("\u25C0", onLeft, 72.dp, 60.dp)
-            PressableButton("\u25BC", onSoftDrop, 72.dp, 60.dp)
-            PressableButton("\u25B6", onRight, 72.dp, 60.dp)
+        Row(horizontalArrangement = Arrangement.spacedBy(Dimens.GAP_MD), verticalAlignment = Alignment.CenterVertically) {
+            PressableButton("\u25C0", onLeft, Dimens.BTN_MED_W, 60.dp)
+            PressableButton("\u25BC", onSoftDrop, Dimens.BTN_MED_W, 60.dp)
+            PressableButton("\u25B6", onRight, Dimens.BTN_MED_W, 60.dp)
         }
-
-        // Hard drop
-        PressableButton("\u25BC\u25BC", onHardDrop, 100.dp, 44.dp)
+        PressableButton("\u25BC\u25BC", onHardDrop, Dimens.BTN_DROP_W, 44.dp)
     }
 }
 
@@ -54,11 +54,17 @@ private fun PressableButton(
     height: androidx.compose.ui.unit.Dp
 ) {
     var pressed by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (pressed) 0.88f else 1f,
+        animationSpec = tween(80),
+        label = "pressScale"
+    )
     Box(
         modifier = Modifier
             .size(width, height)
-            .clip(RoundedCornerShape(10.dp))
-            .background(if (pressed) ColorPrimary.copy(alpha = 0.6f) else ColorPrimary)
+            .scale(scale)
+            .clip(RoundedCornerShape(Dimens.BTN_RADIUS))
+            .background(if (pressed) ColorPrimary.copy(alpha = 0.55f) else ColorPrimary)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
@@ -71,7 +77,7 @@ private fun PressableButton(
         Text(
             text = label,
             color = ColorScoreText,
-            fontSize = 28.sp,
+            fontSize = 26.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
