@@ -1,18 +1,22 @@
 package com.dogcube.game.ui.components
 
-
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dogcube.game.ui.theme.ColorPrimary
-
+import com.dogcube.game.ui.theme.ColorScoreText
+import com.dogcube.game.ui.theme.ColorSurface
 
 @Composable
 fun ControlPanel(
@@ -20,18 +24,64 @@ fun ControlPanel(
     onRotateCW: () -> Unit, onRotateCCW: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val bc = ButtonDefaults.buttonColors(containerColor = ColorPrimary)
-    Column(modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = onRotateCCW, colors = bc, modifier = Modifier.size(120.dp, 48.dp)) { Text("\u21BA", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize) }
-            Button(onClick = onRotateCW, colors = bc, modifier = Modifier.size(120.dp, 48.dp)) { Text("\u21BB", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize) }
+    Column(
+        modifier = modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        // Rotation row
+        Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
+            PressableButton("?", onRotateCCW, 64.dp, 48.dp)
+            PressableButton("?", onRotateCW, 64.dp, 48.dp)
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = onLeft, colors = bc, modifier = Modifier.size(80.dp, 56.dp)) { Text("\u25C0", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize) }
-            Button(onClick = onSoftDrop, colors = bc, modifier = Modifier.size(80.dp, 56.dp)) { Text("\u25BC", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize) }
-            Button(onClick = onRight, colors = bc, modifier = Modifier.size(80.dp, 56.dp)) { Text("\u25B6", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize) }
+
+        // D-pad row: left | soft drop | right
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            PressableButton("?", onLeft, 72.dp, 60.dp)
+            PressableButton("¨‹", onSoftDrop, 72.dp, 60.dp)
+            PressableButton("?", onRight, 72.dp, 60.dp)
         }
-        Button(onClick = onHardDrop, colors = bc, modifier = Modifier.size(80.dp, 48.dp)) { Text("\u25BC\u25BC", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.bodyLarge.fontSize) }
+
+        // Hard drop
+        PressableButton("?", onHardDrop, 80.dp, 44.dp)
+    }
+}
+
+@Composable
+private fun PressableButton(
+    label: String,
+    onClick: () -> Unit,
+    width: androidx.compose.ui.unit.Dp,
+    height: androidx.compose.ui.unit.Dp
+) {
+    var pressed by remember { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .size(width, height)
+            .clip(RoundedCornerShape(10.dp))
+            .background(if (pressed) ColorPrimary.copy(alpha = 0.6f) else ColorPrimary)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+                pressed = true
+                onClick()
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            color = ColorScoreText,
+            fontSize = 26.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+    }
+    // Reset pressed state after a short delay for visual feedback
+    LaunchedEffect(pressed) {
+        if (pressed) {
+            kotlinx.coroutines.delay(80)
+            pressed = false
+        }
     }
 }
