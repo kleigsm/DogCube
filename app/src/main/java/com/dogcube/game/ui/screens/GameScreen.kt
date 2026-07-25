@@ -40,7 +40,7 @@ fun GameScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "SCORE: ${snap.score}",
+                    "分数：${snap.score}",
                     color = ColorScoreText,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
@@ -49,8 +49,8 @@ fun GameScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("LV:${snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
-                    Text("LN:${snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                    Text("等级：${snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                    Text("行数：${snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
                     TextButton(onClick = { viewModel.togglePause() }) {
                         Text(
                             if (snap.phase == GamePhase.PAUSED) "\u25B6" else "\u23F8",
@@ -68,7 +68,7 @@ fun GameScreen(
                     Modifier.padding(end = 8.dp, top = 8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("NEXT", color = ColorScoreText, style = MaterialTheme.typography.labelLarge)
+                    Text("下一个", color = ColorScoreText, style = MaterialTheme.typography.labelLarge)
                     NextPiecePreview(snap.nextPiece)
                 }
             }
@@ -88,7 +88,7 @@ fun GameScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        "PAUSED",
+                        "已暂停",
                         color = ColorScoreText,
                         fontSize = 48.sp,
                         fontWeight = FontWeight.Bold,
@@ -96,7 +96,7 @@ fun GameScreen(
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        "TAP \u25B6 TO RESUME",
+                        "\\u25B6 点击继续",
                         color = ColorScoreText.copy(alpha = 0.6f),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
@@ -116,7 +116,7 @@ fun GameScreen(
                         showGameOverDialog = false
                         onBackToMenu()
                     }) {
-                        Text("MENU", color = ColorScoreText)
+                        Text("菜单", color = ColorScoreText)
                     }
                     Button(
                         onClick = {
@@ -125,14 +125,14 @@ fun GameScreen(
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary)
                     ) {
-                        Text("PLAY AGAIN", fontWeight = FontWeight.Bold)
+                        Text("再来一局", fontWeight = FontWeight.Bold)
                     }
                 }
             },
             containerColor = ColorSurface,
             title = {
                 Text(
-                    "GAME OVER",
+                    "游戏结束",
                     color = ColorScoreText,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -152,7 +152,7 @@ fun GameScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        "Level ${snap.level}  |  ${snap.linesCleared} lines",
+                        "等级 ${snap.level}  |  消除 ${snap.linesCleared} 行",
                         color = ColorScoreText,
                         style = MaterialTheme.typography.bodyLarge
                     )

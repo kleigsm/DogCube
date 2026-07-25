@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(snap.phase) {
             if (snap.phase == GamePhase.GAME_OVER && snap.score > 0) {
                 val df = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                scoreRepository.saveScore("Player", snap.score, snap.level, snap.linesCleared, df.format(Date()))
+                scoreRepository.saveScore("Íæ¼Ò", snap.score, snap.level, snap.linesCleared, df.format(Date()))
             }
         }
 

@@ -20,11 +20,11 @@ import com.dogcube.game.ui.theme.ColorScoreText
 fun ScoreScreen(scores: List<ScoreRecord>, onBack: () -> Unit) {
     Column(Modifier.fillMaxSize().background(ColorBoardBg).padding(16.dp)) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Text("HIGH SCORES", color = ColorScoreText, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            TextButton(onBack) { Text("BACK", color = ColorScoreText) }
+            Text("排行榜", color = ColorScoreText, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            TextButton(onBack) { Text("返回", color = ColorScoreText) }
         }
         Spacer(Modifier.height(16.dp))
-        if (scores.isEmpty()) Text("No scores yet!", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+        if (scores.isEmpty()) Text("暂无记录！", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
         else LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(scores) { r ->
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
