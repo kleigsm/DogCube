@@ -3,12 +3,14 @@
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.dogcube.game.engine.Board
 import com.dogcube.game.engine.GameSnapshot
@@ -16,9 +18,14 @@ import com.dogcube.game.model.DogBreed
 import com.dogcube.game.ui.theme.ColorBoardBg
 import com.dogcube.game.ui.theme.ColorGhostPiece
 import com.dogcube.game.ui.theme.ColorGridLine
+import kotlin.math.roundToInt
 
 @Composable
-fun GameCanvas(snapshot: GameSnapshot, modifier: Modifier = Modifier) {
+fun GameCanvas(
+    snapshot: GameSnapshot,
+    modifier: Modifier = Modifier,
+    flashRows: Int = 0
+) {
     Canvas(modifier = modifier.fillMaxWidth().aspectRatio(Board.WIDTH.toFloat() / Board.HEIGHT.toFloat()).padding(horizontal = 16.dp)) {
         val cw = size.width / Board.WIDTH
         val ch = size.height / Board.HEIGHT
@@ -27,18 +34,8 @@ fun GameCanvas(snapshot: GameSnapshot, modifier: Modifier = Modifier) {
 
         // Glow border
         val glowWidth = 3.dp.toPx()
-        drawRect(
-            color = Color(0xFFFF6B8A).copy(alpha = 0.25f),
-            topLeft = Offset(-glowWidth, -glowWidth),
-            size = Size(size.width + glowWidth * 2, size.height + glowWidth * 2),
-            style = androidx.compose.ui.graphics.drawscope.Stroke(width = glowWidth)
-        )
-        drawRect(
-            color = Color(0xFFFF6B8A).copy(alpha = 0.10f),
-            topLeft = Offset(0f, 0f),
-            size = size,
-            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx())
-        )
+        drawRect(Color(0xFFFF6B8A).copy(alpha = 0.25f), Offset(-glowWidth, -glowWidth), Size(size.width + glowWidth * 2, size.height + glowWidth * 2), style = androidx.compose.ui.graphics.drawscope.Stroke(width = glowWidth))
+        drawRect(Color(0xFFFF6B8A).copy(alpha = 0.10f), Offset(0f, 0f), size, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
 
         // Grid
         for (x in 0..Board.WIDTH) drawLine(ColorGridLine, Offset(x * cw, 0f), Offset(x * cw, size.height), 1.5f)
@@ -56,6 +53,13 @@ fun GameCanvas(snapshot: GameSnapshot, modifier: Modifier = Modifier) {
                 drawLine(shadow.copy(alpha = 0.3f), Offset(x * cw + 1, y * ch + ch - 1), Offset(x * cw + cw - 1, y * ch + ch - 1), 1.5f)
                 drawLine(shadow.copy(alpha = 0.3f), Offset(x * cw + cw - 1, y * ch + 1), Offset(x * cw + cw - 1, y * ch + ch - 1), 1.5f)
             }
+        }
+
+        // Flash rows for line clear animation
+        for (i in 0 until flashRows) {
+            val row = Board.HEIGHT - 1 - i
+            drawRect(Color.White.copy(alpha = 0.7f), Offset(0f, row * ch), Size(size.width, ch))
+            drawRect(Color(0xFFFFD700).copy(alpha = 0.3f), Offset(0f, row * ch + 2), Size(size.width, ch - 4))
         }
 
         val p = snapshot.currentPiece ?: return@Canvas
