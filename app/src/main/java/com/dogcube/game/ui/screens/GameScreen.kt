@@ -1,0 +1,46 @@
+package com.dogcube.game.ui.screens
+
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.dogcube.game.engine.GamePhase
+import com.dogcube.game.ui.components.ControlPanel
+import com.dogcube.game.ui.components.GameCanvas
+import com.dogcube.game.ui.components.NextPiecePreview
+import com.dogcube.game.ui.theme.ColorBoardBg
+import com.dogcube.game.ui.theme.ColorScoreText
+import com.dogcube.game.viewmodel.GameViewModel
+
+
+@Composable
+fun GameScreen(viewModel: GameViewModel, onGameOver: () -> Unit) {
+    val snap by viewModel.snapshot.collectAsState()
+    Column(Modifier.fillMaxSize().background(ColorBoardBg).imePadding()) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Text("SCORE: {snap.score}", color = ColorScoreText, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text("LV:{snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                Text("LN:{snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+            }
+        }
+        Row(Modifier.fillMaxWidth().weight(1f), verticalAlignment = Alignment.Top) {
+            GameCanvas(snap, Modifier.weight(1f))
+            Column(Modifier.padding(end = 8.dp, top = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("NEXT", color = ColorScoreText, style = MaterialTheme.typography.labelLarge)
+                NextPiecePreview(snap.nextPiece)
+            }
+        }
+        ControlPanel(viewModel::moveLeft, viewModel::moveRight, viewModel::softDrop, viewModel::hardDrop, viewModel::rotateCW, viewModel::rotateCCW)
+        Spacer(Modifier.height(8.dp))
+    }
+    if (snap.phase == GamePhase.GAME_OVER) onGameOver()
+}

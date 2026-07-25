@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.DogCube" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/board_bg</item>
+        <item name="android:navigationBarColor">@color/board_bg</item>
+    </style>
+</resources>
