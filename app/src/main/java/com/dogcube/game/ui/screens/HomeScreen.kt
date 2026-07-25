@@ -18,8 +18,8 @@ import com.dogcube.game.ui.theme.ColorScoreText
 fun HomeScreen(onStartGame: () -> Unit, onShowScores: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize().background(ColorBoardBg), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(24.dp)) {
-            Text("?? DogCube", color = ColorScoreText, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-            Text("?? ?? ?? ?? ??", style = MaterialTheme.typography.titleLarge)
+            Text("\uD83D\uDC36 DogCube", color = ColorScoreText, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+            Text("\uD83D\uDC15 \uD83E\uDD8A \uD83D\uDC3A \uD83D\uDC29 \uD83D\uDC3E", style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(16.dp))
             Button(onClick = onStartGame, colors = ButtonDefaults.buttonColors(containerColor = ColorPrimary), modifier = Modifier.size(200.dp, 56.dp)) {
                 Text("START", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)

@@ -26,10 +26,10 @@ fun GameScreen(viewModel: GameViewModel, onGameOver: () -> Unit) {
     val snap by viewModel.snapshot.collectAsState()
     Column(Modifier.fillMaxSize().background(ColorBoardBg).imePadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Text("SCORE: {snap.score}", color = ColorScoreText, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            Text("SCORE: ${snap.score}", color = ColorScoreText, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Text("LV:{snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
-                Text("LN:{snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                Text("LV:${snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
+                Text("LN:${snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
             }
         }
         Row(Modifier.fillMaxWidth().weight(1f), verticalAlignment = Alignment.Top) {
