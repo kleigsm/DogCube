@@ -28,14 +28,12 @@ fun GameScreen(
     val snap by viewModel.snapshot.collectAsState()
     var showGameOverDialog by remember { mutableStateOf(false) }
 
-    // Trigger game over dialog
     LaunchedEffect(snap.phase) {
         if (snap.phase == GamePhase.GAME_OVER) showGameOverDialog = true
     }
 
     Box(Modifier.fillMaxSize().background(ColorBoardBg)) {
         Column(Modifier.fillMaxSize().imePadding()) {
-            // Header: score + pause button
             Row(
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -47,10 +45,12 @@ fun GameScreen(
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text("LV:${snap.level}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
                     Text("LN:${snap.linesCleared}", color = ColorScoreText, style = MaterialTheme.typography.bodyLarge)
-                    // Pause button
                     TextButton(onClick = { viewModel.togglePause() }) {
                         Text(
                             if (snap.phase == GamePhase.PAUSED) "\u25B6" else "\u23F8",
@@ -62,16 +62,17 @@ fun GameScreen(
                 }
             }
 
-            // Game area
             Row(Modifier.fillMaxWidth().weight(1f), verticalAlignment = Alignment.Top) {
                 GameCanvas(snap, Modifier.weight(1f))
-                Column(Modifier.padding(end = 8.dp, top = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    Modifier.padding(end = 8.dp, top = 8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text("NEXT", color = ColorScoreText, style = MaterialTheme.typography.labelLarge)
                     NextPiecePreview(snap.nextPiece)
                 }
             }
 
-            // Controls
             ControlPanel(
                 viewModel::moveLeft, viewModel::moveRight,
                 viewModel::softDrop, viewModel::hardDrop,
@@ -80,32 +81,32 @@ fun GameScreen(
             Spacer(Modifier.height(8.dp))
         }
 
-        // Pause overlay
         if (snap.phase == GamePhase.PAUSED) {
             Box(
                 Modifier.fillMaxSize().background(ColorBoardBg.copy(alpha = 0.85f)),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    "PAUSED",
-                    color = ColorScoreText,
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 8.sp
-                                }
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    "TAP \u25B6 TO RESUME",
-                    color = ColorScoreText.copy(alpha = 0.6f),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                    letterSpacing = 2.sp
-                )
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        "PAUSED",
+                        color = ColorScoreText,
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 8.sp
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        "TAP \u25B6 TO RESUME",
+                        color = ColorScoreText.copy(alpha = 0.6f),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
+                        letterSpacing = 2.sp
+                    )
+                }
             }
         }
     }
 
-    // Game over dialog
     if (showGameOverDialog) {
         AlertDialog(
             onDismissRequest = {},
