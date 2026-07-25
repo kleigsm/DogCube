@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dogcube.game.ui.theme.ColorPrimary
 import com.dogcube.game.ui.theme.ColorScoreText
-import com.dogcube.game.ui.theme.ColorSurface
 
 @Composable
 fun ControlPanel(
@@ -31,19 +30,19 @@ fun ControlPanel(
     ) {
         // Rotation row
         Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
-            PressableButton("?", onRotateCCW, 64.dp, 48.dp)
-            PressableButton("?", onRotateCW, 64.dp, 48.dp)
+            PressableButton("CCW", onRotateCCW, 64.dp, 48.dp)
+            PressableButton("CW", onRotateCW, 64.dp, 48.dp)
         }
 
-        // D-pad row: left | soft drop | right
+        // D-pad row
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            PressableButton("?", onLeft, 72.dp, 60.dp)
-            PressableButton("¨‹", onSoftDrop, 72.dp, 60.dp)
-            PressableButton("?", onRight, 72.dp, 60.dp)
+            PressableButton("<", onLeft, 72.dp, 60.dp)
+            PressableButton("D", onSoftDrop, 72.dp, 60.dp)
+            PressableButton(">", onRight, 72.dp, 60.dp)
         }
 
         // Hard drop
-        PressableButton("?", onHardDrop, 80.dp, 44.dp)
+        PressableButton("DROP", onHardDrop, 100.dp, 44.dp)
     }
 }
 
@@ -72,12 +71,11 @@ private fun PressableButton(
         Text(
             text = label,
             color = ColorScoreText,
-            fontSize = 26.sp,
+            fontSize = if (label.length <= 2) 26.sp else 18.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
     }
-    // Reset pressed state after a short delay for visual feedback
     LaunchedEffect(pressed) {
         if (pressed) {
             kotlinx.coroutines.delay(80)

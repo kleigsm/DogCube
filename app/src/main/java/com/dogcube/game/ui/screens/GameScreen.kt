@@ -92,6 +92,14 @@ fun GameScreen(
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 8.sp
+                                }
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    "TAP \u25B6 TO RESUME",
+                    color = ColorScoreText.copy(alpha = 0.6f),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 2.sp
                 )
             }
         }
