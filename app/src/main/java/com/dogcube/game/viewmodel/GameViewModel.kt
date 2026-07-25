@@ -1,4 +1,4 @@
-﻿package com.dogcube.game.viewmodel
+package com.dogcube.game.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -101,7 +101,6 @@ class GameViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        engine.stop()
         tickJob?.cancel()
         soundManager.release()
     }
