@@ -1,6 +1,7 @@
 ﻿package com.dogcube.game.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -16,6 +17,7 @@ import com.dogcube.game.engine.GamePhase
 import com.dogcube.game.ui.components.ControlPanel
 import com.dogcube.game.ui.components.GameCanvas
 import com.dogcube.game.ui.components.NextPiecePreview
+import com.dogcube.game.ui.theme.ColorBackground
 import com.dogcube.game.ui.theme.ColorBoardBg
 import com.dogcube.game.ui.theme.ColorGridLine
 import com.dogcube.game.ui.theme.ColorPrimary
@@ -35,7 +37,7 @@ fun GameScreen(
         if (snap.phase == GamePhase.GAME_OVER) showGameOverDialog = true
     }
 
-    Box(Modifier.fillMaxSize().background(ColorBoardBg)) {
+    Box(Modifier.fillMaxSize().background(ColorBackground)) {
         Column(Modifier.fillMaxSize().imePadding()) {
             Row(
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
@@ -67,7 +69,6 @@ fun GameScreen(
 
             // Game area + level progress bar
             Row(Modifier.fillMaxWidth().weight(1f), verticalAlignment = Alignment.Top) {
-                // Level progress bar
                 val progressFraction = (snap.linesCleared % 10).coerceIn(0, 9).toFloat() / 10f
                 Box(
                     modifier = Modifier
@@ -107,9 +108,13 @@ fun GameScreen(
             Spacer(Modifier.height(8.dp))
         }
 
+        // Pause overlay — tap anywhere to resume
         if (snap.phase == GamePhase.PAUSED) {
             Box(
-                Modifier.fillMaxSize().background(ColorBoardBg.copy(alpha = 0.85f)),
+                Modifier
+                    .fillMaxSize()
+                    .background(ColorBoardBg.copy(alpha = 0.75f))
+                    .clickable { viewModel.togglePause() },
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -122,7 +127,7 @@ fun GameScreen(
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        "\u25B6 \u70B9\u51FB\u7EE7\u7EED",
+                        "\u70B9\u51FB\u4EFB\u610F\u5904\u7EE7\u7EED",
                         color = ColorScoreText.copy(alpha = 0.6f),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,

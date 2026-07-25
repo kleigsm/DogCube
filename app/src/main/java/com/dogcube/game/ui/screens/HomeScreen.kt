@@ -1,4 +1,4 @@
-﻿package com.dogcube.game.ui.screens
+package com.dogcube.game.ui.screens
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -71,7 +71,7 @@ fun HomeScreen(onStartGame: () -> Unit, onShowScores: () -> Unit) {
                 val bw = b.size * 2.5f
                 val bh = b.size * 2.5f
                 drawRect(b.color.copy(alpha = b.alpha), Offset(cx - bw / 2, cy - bh / 2), Size(bw, bh))
-                drawRect(Color.White.copy(alpha = b.alpha * 0.3f), Offset(cx - bw / 2 + 2, cy - bh / 2 + 2), Size(bw - 4, 4f))
+                drawRect(ColorBackground.copy(alpha = b.alpha * 0.3f), Offset(cx - bw / 2 + 2, cy - bh / 2 + 2), Size(bw - 4, 4f))
             }
         }
 

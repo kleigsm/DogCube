@@ -1,19 +1,25 @@
-package com.dogcube.game.ui.theme
-
+﻿package com.dogcube.game.ui.theme
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-
-private val DogCubeDarkColorScheme = darkColorScheme(
-    primary = ColorPrimary, secondary = ColorShiba, tertiary = ColorDachshund,
-    background = ColorBoardBg, surface = ColorSurface,
-    onPrimary = ColorScoreText, onBackground = ColorScoreText, onSurface = ColorScoreText
+private val DogCubeLightColorScheme = lightColorScheme(
+    primary = ColorPrimary,
+    secondary = ColorSecondary,
+    tertiary = ColorDachshund,
+    background = ColorBackground,
+    surface = ColorSurface,
+    onPrimary = ColorOnPrimary,
+    onBackground = ColorOnBackground,
+    onSurface = ColorOnSurface
 )
-
 
 @Composable
 fun DogCubeTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = DogCubeDarkColorScheme, typography = DogCubeTypography, content = content)
+    MaterialTheme(
+        colorScheme = DogCubeLightColorScheme,
+        typography = DogCubeTypography,
+        content = content
+    )
 }
