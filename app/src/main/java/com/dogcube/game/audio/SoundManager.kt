@@ -1,4 +1,4 @@
-﻿package com.dogcube.game.audio
+package com.dogcube.game.audio
 
 import android.content.Context
 import android.media.AudioAttributes
@@ -81,29 +81,9 @@ class SoundManager @Inject constructor(
             SoundType.ROTATE -> tg.startTone(ToneGenerator.TONE_DTMF_3, 60)
             SoundType.SOFT_DROP -> tg.startTone(ToneGenerator.TONE_DTMF_5, 50)
             SoundType.HARD_DROP -> tg.startTone(ToneGenerator.TONE_DTMF_7, 80)
-            SoundType.LINE_CLEAR -> {
-                tg.startTone(ToneGenerator.TONE_DTMF_5, 100)
-                Thread.sleep(60)
-                tg.startTone(ToneGenerator.TONE_DTMF_7, 100)
-            }
-            SoundType.TETRIS -> {
-                tg.startTone(ToneGenerator.TONE_DTMF_3, 80)
-                Thread.sleep(50)
-                tg.startTone(ToneGenerator.TONE_DTMF_5, 80)
-                Thread.sleep(50)
-                tg.startTone(ToneGenerator.TONE_DTMF_7, 80)
-                Thread.sleep(50)
-                tg.startTone(ToneGenerator.TONE_DTMF_P, 150)
-            }
-            SoundType.GAME_OVER -> {
-                tg.startTone(ToneGenerator.TONE_DTMF_P, 120)
-                Thread.sleep(80)
-                tg.startTone(ToneGenerator.TONE_DTMF_7, 120)
-                Thread.sleep(80)
-                tg.startTone(ToneGenerator.TONE_DTMF_4, 120)
-                Thread.sleep(80)
-                tg.startTone(ToneGenerator.TONE_DTMF_1, 300)
-            }
+            SoundType.LINE_CLEAR -> tg.startTone(ToneGenerator.TONE_DTMF_5, 150)
+            SoundType.TETRIS -> tg.startTone(ToneGenerator.TONE_DTMF_P, 300)
+            SoundType.GAME_OVER -> tg.startTone(ToneGenerator.TONE_DTMF_1, 500)
         }
     }
 }
