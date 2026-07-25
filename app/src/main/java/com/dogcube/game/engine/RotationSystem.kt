@@ -33,8 +33,8 @@ object RotationSystem {
         fromState: Int, toState: Int, x: Int, y: Int
     ): Pair<Int, Int>? {
         if (piece == PieceType.O) return Pair(x, y)
-        val key = "fromState>toState"
-        val kicks = if (piece == PieceType.I) wallKicksI[key] else wallKicksJLSTZ[key] ?: return null
+        val key = "$fromState>$toState"
+        val kicks = (if (piece == PieceType.I) wallKicksI[key] else wallKicksJLSTZ[key]) ?: return null
         val shape = piece.shapes[toState]
         for ((dx, dy) in kicks) {
             val nx = x + dx; val ny = y - dy
